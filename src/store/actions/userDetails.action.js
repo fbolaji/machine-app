@@ -24,6 +24,7 @@ export const fetchUserDetails = (data) => {
   }
   return (dispatch) => {
     dispatch(userDetailsRequest(true))
+    dispatch(userDetailsError({}))
     dispatch(userDetailsData({}))
     return CreateAxiosInstantAPI().get(`/users`,{ params })
         .then(res => {

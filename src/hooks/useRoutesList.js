@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Route } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
 import { routesConfig } from '../services/routesConfig'
 import * as componentsMap from '../components/componentRegistry'
 import { useUserIdentity } from './useUserIdentity';
+import { AlbumListComponent, LoginPageComponent } from '../components/componentRegistry';
 
 
 export function useRoutesList() {
@@ -18,12 +19,19 @@ export function useRoutesList() {
         key={index}
         path={path}
         render={() => {
-            return <ComponentToRender />
-            // if(isUserAuthenticated) {
-            //     return <Redirect to={{pathname: 'list'}} />
-            // } else {
-            //     return <Redirect to={{pathname: 'login'}} />
-            // }
+            //return <ComponentToRender />
+            if(isUserAuthenticated) {
+                console.log(componentName)
+                return <ComponentToRender />
+            }
+
+            return <LoginPageComponent/>
+            //
+            // return <Redirect to={{
+            //     pathname: '/login',
+            //     component: LoginPageComponent
+            // }} />
+
         }}
         />
     )

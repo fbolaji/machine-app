@@ -3,6 +3,7 @@ import { actionTypes } from '../types'
 const initialState = {
 	albumListRequest: false,
 	albumList: [],
+	albumFullList: [],
 	albumPhotos: [],
 	albumListError: {},
 }
@@ -18,6 +19,11 @@ const AlbumListReducers = (state = initialState, action) => {
 			return {
 				...state,
 				albumList: action.payload,
+			}
+		case actionTypes.ALBUM_FULL_LIST:
+			return {
+				...state,
+				albumFullList: action.payload,
 			}
 		case actionTypes.ALBUM_PHOTOS:
 			return {

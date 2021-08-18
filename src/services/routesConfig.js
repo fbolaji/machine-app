@@ -1,29 +1,14 @@
 export const routesConfig = [
   {
-    label: 'login',
     path: '/login',
-    route: 'login',
-    component: 'LoginPageComponent',
-    menu: 'Login',
-    subNav: [
-      {
-        label: 'view details',
-        path: '/view/',
-        route: 'view-details',
-        component: 'ViewDetails',
-      },
-    ],
+    component: 'LoginPageComponent'
   },
   {
-    label: 'list',
     path: '/list',
-    route: 'list',
     component: 'AlbumListComponent',
-    menu: 'list',
-    subNav: [
-      {
-
-      },
-    ],
   },
+  {
+    path: '/list/album-details',
+    component: 'AlbumDetailsComponent',
+  }
 ]

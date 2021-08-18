@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import _isEmpty from 'lodash/isEmpty'
 import { Form, Col, Row, Alert } from 'react-bootstrap';
 import { fetchUserDetails } from '../../store/actions/userDetails.action';
-import { useUserIdentity } from '../../hooks/useUserIdentity';
 
 export const LoginPage = () =>  {
 	const history = useHistory()
@@ -16,11 +16,8 @@ export const LoginPage = () =>  {
 	});
 	const [submitted, setSubmitted] = useState(false)
 	const { username, password} = formData;
+	const userDetails = userLoginDetails?.userDetails
 	const userDetailsError  = userLoginDetails?.userDetailsError
-
-	if(useUserIdentity()) {
-		history.push('/list')
-	}
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -32,16 +29,19 @@ export const LoginPage = () =>  {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
+		setIsError({})
 		setSubmitted( true );
 		const { username, password } = formData;
 
 		if (username && password) {
 			dispatch(fetchUserDetails(formData)).then(() => {
-				history.push('/list')
+				if(userDetails?.username !== undefined) {
+					history.push('/list')
+				}
 			})
 		}
-	}
+}
+
 
 	useEffect(() => {
 		console.log(userDetailsError)
