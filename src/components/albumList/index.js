@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import _isEmpty from 'lodash/isEmpty'
-import {useHistory, Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { getAlbumListErrorMessage, fetchUserAlbumList } from '../../store/actions/albumList.action';
+import { fetchUserAlbumList } from '../../store/actions/albumList.action';
 import { Col, Row, ListGroup } from 'react-bootstrap'
 
 export const AlbumList = () => {
-	let history = useHistory()
 	const dispatch = useDispatch()
 	const getUserDetails = useSelector(state => state?.user?.userDetails)
 	const getUserAlbum = useSelector(state => state?.userAlbum)
@@ -14,9 +13,11 @@ export const AlbumList = () => {
 	const [albumFullList, setAlbumFullList] = useState([])
 	const [page, setPage] = useState(1)
 
+
+	// TODO - behaviour is inconsistent
 	const infiniteScroll = () => {
 		let winH = (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight)
-		console.log(winH)
+
 		if(winH){
 			let newPage = page;
 			newPage++;
@@ -37,31 +38,32 @@ export const AlbumList = () => {
 	}, [user])
 
 	useEffect(() => {
-		window.addEventListener('scroll', () => {
-			infiniteScroll()
-		});
 		setAlbumFullList([...albumFullList, ...getUserAlbum?.albumFullList])
 	}, [getUserAlbum?.albumFullList])
 
+	// TODO - behaviour is inconsistent
 	// useEffect(() => {
-	// 	window.addEventListener('scroll', infiniteScroll);
-	// 	setAlbumFullList([...albumFullList, ...getUserAlbum?.albumFullList])
+	// 	document.addEventListener('scroll', infiniteScroll);
+	//
+	// 	return () => {
+	// 		document.removeEventListener('scroll', infiniteScroll)
+	// 	}
 	// }, [])
 
 	return (
 		<Row>
-			<Col md={{ span: 6, offset: 3 }}>
+			<Col lg={{ span: 10, offset: 1 }} md={{ span: 10, offset: 1 }}>
 				<p>User: {user?.username}</p>
 				<h2>list</h2>
-				<ListGroup defaultActiveKey="/list/album-details/">
-					{albumFullList?.map((list) =>
-						<ListGroup.Item action key={list?.id}>
-							<Link to={`/list/album-details?id=${list?.id}`}>
-								<figure className="h-50">
+				<ListGroup as={'ul'}>
+					{albumFullList?.map((list, idx) =>
+						<ListGroup.Item as={'li'} action key={idx}>
+							<figure className="h-50">
+								<Link to={`/list/album-details?id=${list?.id}`}>
 									<img src={list?.photo?.thumb} alt={list?.title} style={{minHeight: 150, minWidth: 150}}/>
 									<span>{list?.title}</span>
-								</figure>
-						</Link>
+								</Link>
+							</figure>
 						</ListGroup.Item>
 					)}
 				</ListGroup>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Switch } from 'react-router-dom'
 import {Container, Row, Col} from 'react-bootstrap';
 import { useRoutesList } from './hooks/useRoutesList'
 import { useRedirectLandingPage } from './hooks/useRedirectLandingPage';
@@ -29,7 +29,7 @@ function App() {
                   </Col>
                 </Row>
                   <Row>
-                      <Col>
+                      <Col className="col-12">
                           <RenderRoutes />
                           <LandingPage />
                       </Col>

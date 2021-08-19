@@ -26,18 +26,17 @@ const albumListError = (error) => ({
 export const fetchUserAlbumList = (data) => {
 	const params = {
 		userId: data?.id,
-		_page: data?.page,
-		_limit: 10
+		page: data?.page,
+		limit: 10
 	}
 	return (dispatch) => {
 		dispatch(albumListRequest(true))
-		return CreateAxiosInstantAPI().get(`/albums`,{ params })
+		return CreateAxiosInstantAPI().get(`/albums`, { params })
 			.then(res => {
 				dispatch(albumListData(res.data))
 				dispatch(fetchAlbumPhotos(data?.id))
 			})
 			.catch(e => {
-				console.log(e)
 				dispatch(albumListError(e))
 			})
 	}
@@ -46,24 +45,17 @@ export const fetchUserAlbumList = (data) => {
 export const fetchAlbumPhotos = (id) => {
 	return (dispatch) => {
 		dispatch(albumListRequest(true))
-		return CreateAxiosInstantAPI().get(`album/${id}/photos`)
+		return CreateAxiosInstantAPI().get(`/albums/${id}/photos`)
 			.then(res => {
 				dispatch(albumPhotos(res.data))
 				dispatch(getPhoto())
 			})
 			.catch(e => {
-				console.log(e)
 				dispatch(albumListError(e))
 			})
 	}
 }
 
-export const getAlbumListErrorMessage = () => {
-	return (dispatch, getState) => {
-		console.log(getState())
-		return getState()
-	}
-}
 
 const getPhoto = () => {
 	return (dispatch, getState) => {

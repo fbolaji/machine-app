@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import _isEmpty from 'lodash/isEmpty'
 import { Form, Col, Row, Alert } from 'react-bootstrap';
 import { fetchUserDetails } from '../../store/actions/userDetails.action';
 
@@ -10,11 +9,11 @@ export const LoginPage = () =>  {
 	const dispatch = useDispatch()
 	const userLoginDetails = useSelector(state => state?.user)
 	const [isError, setIsError] = useState(null)
+	const [submitted, setSubmitted] = useState(false)
 	const [formData, setFormData]  = useState({
 		username: '',
 		password: '',
 	});
-	const [submitted, setSubmitted] = useState(false)
 	const { username, password} = formData;
 	const userDetails = userLoginDetails?.userDetails
 	const userDetailsError  = userLoginDetails?.userDetailsError
@@ -40,18 +39,16 @@ export const LoginPage = () =>  {
 				}
 			})
 		}
-}
-
+	}
 
 	useEffect(() => {
-		console.log(userDetailsError)
 		setIsError(userDetailsError)
 	}, [userDetailsError])
 
 
 		return (
 			<Row>
-				<Col md={{ span: 6, offset: 3 }}>
+				<Col lg={{ span: 10, offset: 1 }} md={{ span: 10, offset: 1 }}>
 				<h2>Login</h2>
 					{isError?.message && <Alert type="error" className="bg-danger text-light">{isError?.message}</Alert>}
 				<Form name="loginForm" onSubmit={handleSubmit}>
