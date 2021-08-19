@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom'
 import {Container, Row, Col} from 'react-bootstrap';
 import { useRoutesList } from './hooks/useRoutesList'
 import { useRedirectLandingPage } from './hooks/useRedirectLandingPage';
+import Header from './components/header';
 
 const LandingPage = () => useRedirectLandingPage()
 
@@ -16,16 +17,14 @@ const RenderRoutes = () => {
     )
 }
 
-function App() {
+export const App = () => {
   return (
       <Router>
           <Switch>
               <Container fluid className="app">
                 <Row className="bg-secondary text-light">
                   <Col>
-                    <header className="p-2">
-                      <h2>User Album List...</h2>
-                    </header>
+                   <Header />
                   </Col>
                 </Row>
                   <Row>

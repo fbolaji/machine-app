@@ -5,15 +5,15 @@ const albumListRequest = (boo) => ({
 	type: actionTypes.ALBUM_LIST_REQUEST,
 	payload: boo,
 })
-const albumListData = (data) => ({
+export const albumListData = (data) => ({
 	type: actionTypes.ALBUM_LIST,
 	payload: data,
 })
-const albumFullListData = (data) => ({
+export const albumFullListData = (data) => ({
 	type: actionTypes.ALBUM_FULL_LIST,
 	payload: data,
 })
-const albumPhotos = (data) => ({
+export const albumPhotos = (data) => ({
 	type: actionTypes.ALBUM_PHOTOS,
 	payload: data
 })

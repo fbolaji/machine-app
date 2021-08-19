@@ -1,7 +1,7 @@
 import _isEmpty from 'lodash/isEmpty'
 import { CreateAxiosInstantAPI } from '../../services/axiosInstant';
-import { actionTypes } from '../types' 
-
+import { actionTypes } from '../types'
+import { albumFullListData } from './albumList.action';
 
 const userDetailsRequest = (boo) => ({
     type: actionTypes.USER_DETAILS_REQUEST,
@@ -16,6 +16,14 @@ const userDetailsRequest = (boo) => ({
     type: actionTypes.USER_DETAILS_ERROR,
     payload: error,
   })
+
+export const logOut = () => {
+    return (dispatch) => {
+        dispatch(userDetailsData({}))
+        dispatch(albumFullListData([]))
+        window.location.reload()
+    }
+}
 
 export const fetchUserDetails = (data) => {
   const params = {
@@ -34,7 +42,6 @@ export const fetchUserDetails = (data) => {
                 return
             }
             dispatch(userDetailsData(userData))
-            //window?.sessionStorage.setItem('user', JSON.stringify(userData))
         })
         .catch(e => {
           console.log(e)
